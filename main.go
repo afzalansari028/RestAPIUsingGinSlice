@@ -8,7 +8,7 @@ import (
 
 func main() {
 
-	router := gin.Default()
+	router := gin.New()
 
 	myAppRouter := router.Group("/my-app")
 

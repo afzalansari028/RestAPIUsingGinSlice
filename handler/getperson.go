@@ -1,8 +1,14 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+
+	"github.com/gin-gonic/gin"
+)
 
 func GetAllPersons(c *gin.Context) {
+	auth := c.GetHeader("Authorization")
+	fmt.Println("auth:::", auth)
 	c.JSON(200, persons)
 }
 
