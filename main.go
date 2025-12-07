@@ -2,11 +2,32 @@ package main
 
 import (
 	"RestAPIUsingGinSlice/handler"
+	"fmt"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+
+	env := os.Getenv("ENV")
+
+	var envFile string
+	// get env file
+	if env == "local" {
+		envFile = fmt.Sprintf("./resources/.env.%s", env)
+	} else {
+		envFile = fmt.Sprintf("./resources/.env.%s", env)
+	}
+	// load env file based on env set : for local we set manually, for others that will be set on yml file if kubernetes.
+	err := godotenv.Load(envFile)
+	if err != nil {
+		fmt.Println("Env file not leaded..")
+	}
+
+	checkENV := os.Getenv("XYZ")
+	fmt.Println("ENVIRONMENT::", checkENV)
 
 	router := gin.New()
 
@@ -27,3 +48,6 @@ func main() {
 	router.Run(":8080")
 
 }
+
+// set env -->   $env:ENV="local"
+// check env --> $env:ENV
